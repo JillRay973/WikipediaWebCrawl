@@ -1,14 +1,18 @@
-In addition, please submit a 1 page summary.txt file – this should contain the name and description of
-your project (4-5 sentences), describe which of the categories you used from the above, and the actual
-work breakdown (who did what).
-As a reminder, please keep your TA (the one who sent you feedback) in the loop on any changes. They
-should also be the first point of contact if you have any questions.
-If you made any changes to your project after your proposal or since you last spoke with your TA, please
-mention the changes and the reasons for making them
+************************ Wikipedia WebCrawl ************************
+*************** Jill Rayca, Mia Ginsberg, Lisa Kesewa **************
 
-Kevin Bacon-esc degree simulator but instead simulating The Wikipedia Game, where the goal is to get to the "Philosophy" page from any user specified page.
-The number of steps it would take to get from the user page to the Philosophy page along the quickest and most efficient path (BFS)
-Graph and Graph Algorithms, Information Networds
-We will be using Graph/Graph Algorithms to find the routes from one page to the other (most likely BFS or modified Dijkstra's, but an altered version where we check to make sure there are no loops). We will be using web-scraping to analyze the Wikipedia pages similar to HW3. 
-Equal parts divided into back end research and development including web crawling, pattern finding, and implementation.
-There may be an element added if front end is also involved.
+Wikipedia WebCrawl is a terminal-based game inspired by the Kevin Bacon Degree Simulator.
+With this game, you enter a start and end topic on Wikipedia. Then, we use a BFS method to
+calculate the first shortest-length path between those two topics, using pages as nodes and
+edges as links between pages. This works by navigating to the starting article and webscraping
+all of the page links featured within its body. Then, via BFS, each link is searched to see
+if they are the end topic, or if one of their webscraped links contains the end topic. Once
+the end article is found, its length and linkage to the starting article is returned. For this
+project, we focused on the categories: Graph and Graph Algorithms, and Information Networks. 
+
+We divided the work as follows:
+Jill: Set up base files, BFS structure, and link webscraper
+Mia: Set up input and output and summary.txt
+Lisa: Set up BFS modification, list of links in shortest path
+
+We originally planned on making a front-end, but after discussing with our TA, decided not to.
