@@ -85,7 +85,7 @@ public class WikipediaWebCrawler {
         // Iterate over all links and add their 'href' attribute to the list
         for (Element link : links) {
             String href = link.attr("abs:href"); // Use 'abs:href' to get absolute URL
-            if (href.startsWith("https://")) {   // Filter to include only valid HTTP URLs
+            if (href.startsWith("https://en.") && !href.contains("redlink=1")) {   // Filter to include only valid HTTP URLs
                 urls.add(href);
             }
         }
