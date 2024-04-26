@@ -29,6 +29,20 @@ public class WikipediaWebCrawler {
         return urls;
     }
 
+    private Map<String, int> lowestDistance (List<String> urls) {
+        Map<String, int> lowestUrl = new HashMap<>();
+        int min = Integer.MAX_VALUE;
+        for (String url : urls) {
+            List<String> path = bfs(url, endUrl);
+            if (path.size() < min) {
+                min = path.size();
+                lowestUrl.put(url, min);
+            }
+        }
+        return lowestUrl;
+    }
+
+
     public static void main(String[] args) {
         try {
             // Example: Scraping the Wikipedia article for "Java (programming language)"
