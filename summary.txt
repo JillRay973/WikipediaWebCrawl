@@ -7,8 +7,8 @@ calculate the first shortest-length path between those two topics, using pages a
 edges as links between pages. This works by navigating to the starting article and webscraping
 all of the page links featured within its body. Then, via BFS, each link is searched to see
 if they are the end topic, or if one of their webscraped links contains the end topic. Once
-the end article is found, its length and linkage to the starting article is returned. For this
-project, we focused on the categories: Graph and Graph Algorithms, and Information Networks. 
+the end article is found, its length and linkage to the starting article is returned. This was 
+an Implementation Project focused on the categories: Graph and Graph Algorithms, and Information Networks. 
 
 We divided the work as follows:
 Jill: Set up base files, BFS structure, and link webscraper
@@ -17,9 +17,5 @@ Lisa: Set up BFS modification, list of links in shortest path
 
 We originally planned on making a front-end, but after discussing with our TA, decided not to.
 
-***How to run the game***
-1. Run the .java file which will run the main method
-2. Enter the title of the page you want to start from (Source)
-3. Enter the title of the page you want to find a path to (Destination)
-4. The algorithm will print out the path consisting of the links it had to enter to reach the 
-end path if it exists or null if it couldn't reach your destination page
+
+
