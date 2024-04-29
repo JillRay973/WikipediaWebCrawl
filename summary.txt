@@ -16,3 +16,10 @@ Mia: Set up input and output and summary.txt
 Lisa: Set up BFS modification, list of links in shortest path
 
 We originally planned on making a front-end, but after discussing with our TA, decided not to.
+
+***How to run the game***
+1. Run the .java file which will run the main method
+2. Enter the title of the page you want to start from (Source)
+3. Enter the title of the page you want to find a path to (Destination)
+4. The algorithm will print out the path consisting of the links it had to enter to reach the 
+end path if it exists or null if it couldn't reach your destination page
