@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.*;
+
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,19 +10,27 @@ import org.jsoup.select.Elements;
 public class WikipediaWebCrawler {
     private static final String BASE_URL = "https://en.wikipedia.org/wiki/";
     private static String endWikiUrl;
+    private static String endWikiPage;
     private static Set<String> visited = new HashSet<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Example: Scraping the Wikipedia article for "Java (programming language)"
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the start page topic");
         String startPage = scanner.nextLine();
         String startWikiUrl = BASE_URL + startPage;
+        Connection.Response startResponse = Jsoup.connect(startWikiUrl).followRedirects(true).execute();
+        startWikiUrl = startResponse.url().toString();
+        System.out.println(startWikiUrl);
 
         System.out.println("Enter the end page topic");
         String endPage = scanner.nextLine();
         endWikiUrl = BASE_URL + endPage;
+        Connection.Response endResponse = Jsoup.connect(endWikiUrl).followRedirects(true).execute();
+        endWikiUrl = endResponse.url().toString();
+        System.out.println(startWikiUrl);
+
 
         System.out.println("Running...");
         List<String> shortestPath = findShortestPath(startWikiUrl);
@@ -45,7 +55,7 @@ public class WikipediaWebCrawler {
 
         while (!queue.isEmpty()) {
             String currentUrl = queue.poll();
-            if (currentUrl.equals(endWikiUrl)) {
+            if (extractTitle(currentUrl).equals(endWikiUrl)) {
                 return reconstructPath(parentMap);
             }
 
@@ -85,8 +95,13 @@ public class WikipediaWebCrawler {
         // Iterate over all links and add their 'href' attribute to the list
         for (Element link : links) {
             String href = link.attr("abs:href"); // Use 'abs:href' to get absolute URL
-            if (href.startsWith("https://en.") && !href.contains("redlink=1")) {   // Filter to include only valid HTTP URLs
-                urls.add(href);
+            if (href.startsWith(BASE_URL) && !href.contains("redlink=1")) {   // Filter to include only valid HTTP URLs
+                if (href.contains("#")) {
+                    urls.add(href.substring(0, href.indexOf('#')));
+                } else {
+                    urls.add(href);
+                }
+
             }
         }
 
