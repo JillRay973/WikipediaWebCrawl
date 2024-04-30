@@ -11,9 +11,9 @@ the end article is found, its length and linkage to the starting article is retu
 an Implementation Project focused on the categories: Graph and Graph Algorithms, and Information Networks. 
 
 We divided the work as follows:
-Jill: Set up base files, BFS structure, and link webscraper
-Mia: Set up input and output and summary.txt
-Lisa: Set up BFS modification, list of links in shortest path
+Jill: base files, BFS base structure, webscraping, inputs, and link conversion.
+Mia: summary.txt, BFS modification, output, and error catching
+Lisa: User manual and lowest distance
 
 We originally planned on making a front-end, but after discussing with our TA, decided not to.
 
