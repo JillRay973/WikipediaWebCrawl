@@ -10,7 +10,6 @@ import org.jsoup.select.Elements;
 public class WikipediaWebCrawler {
     private static final String BASE_URL = "https://en.wikipedia.org/wiki/";
     private static String endWikiUrl;
-    private static String endWikiPage;
     private static Set<String> visited = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
@@ -29,11 +28,16 @@ public class WikipediaWebCrawler {
         endWikiUrl = BASE_URL + endPage;
         Connection.Response endResponse = Jsoup.connect(endWikiUrl).followRedirects(true).execute();
         endWikiUrl = endResponse.url().toString();
-        System.out.println(startWikiUrl);
+        System.out.println(endWikiUrl);
 
 
         System.out.println("Running...");
         List<String> shortestPath = findShortestPath(startWikiUrl);
+        printOutput(shortestPath);
+
+    }
+
+    private static void printOutput(List<String> shortestPath) {
         if (shortestPath != null) {
             System.out.println("Shortest path: ");
             for (int i = 0; i < shortestPath.size() - 1; i++) {
@@ -43,6 +47,7 @@ public class WikipediaWebCrawler {
         } else {
             System.out.println("No path found.");
         }
+        System.exit(0);
     }
 
     private static List<String> findShortestPath(String startWikiUrl) {
@@ -55,13 +60,13 @@ public class WikipediaWebCrawler {
 
         while (!queue.isEmpty()) {
             String currentUrl = queue.poll();
-            if (extractTitle(currentUrl).equals(endWikiUrl)) {
+            if (extractTitle(currentUrl).equals(extractTitle(endWikiUrl))) {
                 return reconstructPath(parentMap);
             }
 
             List<String> childUrls;
             try {
-                childUrls = scrapeWikiArticleLinks(currentUrl);
+                childUrls = scrapeWikiArticleLinks(currentUrl, parentMap);
                 if (childUrls != null) {
                     for (String childUrl : childUrls) {
                         if (!visited.contains(childUrl)) {
@@ -79,7 +84,7 @@ public class WikipediaWebCrawler {
         return null;
     }
 
-    private static List<String> scrapeWikiArticleLinks(String url) throws IOException {
+    private static List<String> scrapeWikiArticleLinks(String url, Map<String, String> parentMap) throws IOException {
         // Fetch the document from the URL
         Document document = Jsoup.connect(url).get();
         Element paragraphs = document.selectFirst("#mw-content-text > div.mw-content-ltr.mw-parser-output");
@@ -97,10 +102,14 @@ public class WikipediaWebCrawler {
             String href = link.attr("abs:href"); // Use 'abs:href' to get absolute URL
             if (href.startsWith(BASE_URL) && !href.contains("redlink=1")) {   // Filter to include only valid HTTP URLs
                 if (href.contains("#")) {
-                    urls.add(href.substring(0, href.indexOf('#')));
-                } else {
-                    urls.add(href);
+                    href = href.substring(0, href.indexOf('#'));
                 }
+                if (extractTitle(href).equals(extractTitle(endWikiUrl))) {
+                    System.out.println("Match found: " + href);
+                    parentMap.put(href, url);
+                    printOutput(reconstructPath(parentMap));
+                }
+                urls.add(href);
 
             }
         }
