@@ -1,5 +1,5 @@
 ************************ Wikipedia WebCrawl ************************
-*************** Jill Rayca, Mia Ginsberg, Lisa Kesewa **************
+*************** Jill Rayca, Mia Ginsberg, Lisa Ayisi **************
 
 Wikipedia WebCrawl is a terminal-based game inspired by the Kevin Bacon Degree Simulator.
 With this game, you enter a start and end topic on Wikipedia. Then, we use a BFS method to
