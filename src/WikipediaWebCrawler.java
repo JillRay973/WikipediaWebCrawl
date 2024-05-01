@@ -41,7 +41,7 @@ public class WikipediaWebCrawler {
         if (shortestPath != null) {
             System.out.println("Shortest path: ");
             for (int i = 0; i < shortestPath.size() - 1; i++) {
-                System.out.print(shortestPath.get(i) + " -> ");
+                System.out.print(shortestPath.get(i).replaceAll("_", " ") + " -> ");
             }
             System.out.print(shortestPath.get(shortestPath.size() - 1));
         } else {
